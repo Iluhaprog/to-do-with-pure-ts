@@ -1,0 +1,34 @@
+{
+  "name": "to-do-app",
+  "version": "0.0.1",
+  "description": "PWA to-do-app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "ttsc -w",
+    "build": "ttsc"
+  },
+  "keywords": [
+    "TO-DO",
+    "PWA",
+    "todo",
+    "TypeScript"
+  ],
+  "author": "Novak Ilya",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.4",
+    "@zoltu/typescript-transformer-append-js-extension": "^1.0.1",
+    "eslint": "^8.19.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.3",
+    "eslint-plugin-promise": "^6.0.0",
+    "ttypescript": "^1.5.13",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
