@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "ttsc -w",
     "build": "ttsc",
-    "test": "ts-mocha -p ./tsconfig.test.json ./src/**/*.spec.ts -w --watch-files '**/*.ts'"
+    "test": "ts-mocha -p ./tsconfig.test.json ./src/**/*.spec.ts",
+    "test:watch": "ts-mocha -p ./tsconfig.test.json ./src/**/*.spec.ts -w --watch-files '**/*.ts'"
   },
   "keywords": [
     "TO-DO",
