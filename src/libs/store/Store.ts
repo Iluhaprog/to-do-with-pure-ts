@@ -3,7 +3,11 @@ import { ERunOrder } from './types/ERunOrder';
 import { IStore, TSetDataParam } from './types/IStore';
 
 export class Store<T> implements IStore<T> {
-  private _middlewares: { [key in ERunOrder]?: IMiddleware<T>[] } = {};
+  private _middlewares: { [key in ERunOrder]: IMiddleware<T>[] } = {
+    [ERunOrder.BEFORE]: [],
+    [ERunOrder.AFTER]: []
+  };
+
   private _store: T | null = null;
 
   get middlewares () {

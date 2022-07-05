@@ -4,9 +4,9 @@
   "description": "PWA to-do-app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "ttsc -w",
-    "build": "ttsc"
+    "build": "ttsc",
+    "test": "ts-mocha -p ./tsconfig.test.json ./src/**/*.spec.ts -w --watch-files '**/*.ts'"
   },
   "keywords": [
     "TO-DO",
@@ -17,6 +17,8 @@
   "author": "Novak Ilya",
   "license": "ISC",
   "devDependencies": {
+    "@types/expect": "^24.3.0",
+    "@types/mocha": "^9.1.1",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.4",
     "@zoltu/typescript-transformer-append-js-extension": "^1.0.1",
@@ -25,6 +27,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.3",
     "eslint-plugin-promise": "^6.0.0",
+    "ts-mocha": "^10.0.0",
     "ttypescript": "^1.5.13",
     "typescript": "^4.7.4"
   },
