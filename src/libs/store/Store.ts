@@ -24,13 +24,13 @@ export class Store<T> implements IStore<T> {
 
   setData (data: TSetDataParam<T>): void | Promise<void> {
     this._middlewares[ERunOrder.BEFORE]?.forEach((middleware) => {
-      middleware.run(this._store);
+      if (this._store !== null) middleware.run(this._store);
     });
 
-    this._store = data(this._store);
+    if (this._store !== null) this._store = data(this._store);
 
     this._middlewares[ERunOrder.AFTER]?.forEach((middleware) => {
-      middleware.run(this._store);
+      if (this._store !== null) middleware.run(this._store);
     });
   }
 

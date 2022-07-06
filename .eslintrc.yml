@@ -1,8 +1,7 @@
 env:
   browser: true
-  es2021: true
 extends:
-  - "plugin:@typescript-eslint/recommended"
+  - 'plugin:@typescript-eslint/recommended'
   - standard
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -11,9 +10,9 @@ parserOptions:
 plugins:
   - '@typescript-eslint'
 rules: {
-  no-plusplus: "error",
-  no-unused-vars: "off",
-  semi: ["error", "always"],
-  "@typescript-eslint/no-empty-function": "off",
-  no-useless-return: "off"
+  no-plusplus: 'error',
+  no-unused-vars: 'off',
+  semi: ['error', 'always'],
+  '@typescript-eslint/no-empty-function': 'off',
+  no-useless-return: 'off',
 }
