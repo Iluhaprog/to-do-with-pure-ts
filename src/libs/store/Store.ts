@@ -1,45 +1,44 @@
-import { IMiddleware } from './types/IMiddleware';
-import { ERunOrder } from './types/ERunOrder';
-import { IStore, TSetDataParam } from './types/IStore';
+import { IStore } from './IStore';
+import { IStoreMiddleware } from './IStoreMiddleware';
+import { IStoreSubscriber } from './IStoreSubscriber';
 
 export class Store<T> implements IStore<T> {
-  private _middlewares: { [key in ERunOrder]: IMiddleware<T>[] } = {
-    [ERunOrder.BEFORE]: [],
-    [ERunOrder.AFTER]: []
-  };
+  private _store: T;
+  private _subscribers: IStoreSubscriber<T>[] = [];
+  private _middleware: IStoreMiddleware<T>[] = [];
 
-  private _store: T | null = null;
-
-  get middlewares () {
-    return this._middlewares;
+  constructor (initStore: T) {
+    this._store = initStore;
   }
 
-  public valueOf () {
+  applyMiddleware (...middleware: IStoreMiddleware<T>[]): void {
+    this._middleware = [...this._middleware, ...middleware];
+  }
+
+  removeMiddleware (middleware: IStoreMiddleware<T>): void {
+    this._middleware = this._middleware.filter((md) => md !== middleware);
+  }
+
+  subscribe (subscriber: IStoreSubscriber<T>): void {
+    this._subscribers.push(subscriber);
+  }
+
+  unsubscribe (subscriber: IStoreSubscriber<T>): void {
+    this._subscribers = this._subscribers.filter((sub) => sub !== subscriber);
+  }
+
+  setStore (newData: T | ((prevState: T) => T)): void {
+    if (newData instanceof Function) {
+      this._store = newData(this._store);
+    } else {
+      this._store = newData;
+    }
+
+    this._middleware.forEach((middleware) => middleware.run(this._store));
+    this._subscribers.forEach((subscriber) => subscriber.call(this._store));
+  }
+
+  valueOf (): T {
     return this._store;
-  }
-
-  constructor (store: T) {
-    this._store = store;
-  }
-
-  setData (data: TSetDataParam<T>): void | Promise<void> {
-    this._middlewares[ERunOrder.BEFORE]?.forEach((middleware) => {
-      if (this._store !== null) middleware.run(this._store);
-    });
-
-    if (this._store !== null) this._store = data(this._store);
-
-    this._middlewares[ERunOrder.AFTER]?.forEach((middleware) => {
-      if (this._store !== null) middleware.run(this._store);
-    });
-  }
-
-  setMiddleware (...middlewares: IMiddleware<T>[]): void | Promise<void> {
-    middlewares.forEach((middleware) => {
-      if (!Array.isArray(this._middlewares[middleware.order])) {
-        this._middlewares[middleware.order] = [];
-      }
-      this._middlewares[middleware.order]?.push(middleware);
-    });
   }
 }

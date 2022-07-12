@@ -1,14 +1,14 @@
-import { ISpy } from './types/ISpy.moch';
+import { ISpy } from './types/ISpy.mock';
 
 export class MSpy implements ISpy {
-  private args: unknown[];
-  private callsCount = 0;
+  private _args: unknown[] = [];
+  private _callsCount = 0;
   private _isCalled = false;
 
   public call (...args: unknown[]): void {
-    this.callsCount += 1;
+    this._callsCount += 1;
     this._isCalled = true;
-    this.args = args;
+    this._args = args;
   }
 
   public isCalled (): boolean {
@@ -16,10 +16,10 @@ export class MSpy implements ISpy {
   }
 
   public getCallsCount (): number {
-    return this.callsCount;
+    return this._callsCount;
   }
 
   getCalledArgs (): unknown[] {
-    return this.args;
+    return this._args;
   }
 }
